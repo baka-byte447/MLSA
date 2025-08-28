@@ -1,11 +1,19 @@
-name: multilingual-sentiment-app
-type: web_service
-env: python
-buildCommand: pip install -r requirements.txt
-startCommand: python src/app.py
-autoDeploy: true
-region: oregon
-envVars:
-  GEMINI_API_KEY: ${GEMINI_API_KEY}
-  SECRET_KEY: ${SECRET_KEY}
-  FLASK_DEBUG: ${FLASK_DEBUG}
+services:
+  - type: web
+    name: multilingual-sentiment-app
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.0
+      - key: GEMINI_API_KEY
+        fromService:
+          type: secret
+          name: gemini-api-key
+      - key: SECRET_KEY
+        generateValue: true
+      - key: FLASK_APP
+        value: app.py
+      - key: FLASK_ENV
+        value: production

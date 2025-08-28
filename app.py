@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, jsonify, send_file
 import io
 import json
@@ -115,4 +116,5 @@ def download(format):
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=app.config['DEBUG'])
+    port = int(os.environ.get('PORT', 10000))
+    app.run(host='0.0.0.0', port=port, debug=app.config['DEBUG'])
