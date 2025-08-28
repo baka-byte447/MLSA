@@ -3,10 +3,11 @@ services:
     name: multilingual-sentiment-app
     env: python
     python:
-      version: 3.10.0
+      version: 3.9.0  # Using Python 3.9 for better compatibility
     buildCommand: |
-      pip install --upgrade pip
-      pip install -r requirements.txt
+      python -m pip install --upgrade pip
+      pip install setuptools wheel
+      pip install -r requirements.txt --no-cache-dir
     startCommand: gunicorn app:app
     envVars:
       - key: GEMINI_API_KEY
@@ -17,3 +18,5 @@ services:
         value: app.py
       - key: FLASK_ENV
         value: production
+      - key: PYTHONUNBUFFERED
+        value: true
