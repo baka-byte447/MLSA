@@ -2,11 +2,13 @@ services:
   - type: web
     name: multilingual-sentiment-app
     env: python
-    buildCommand: pip install -e .
+    python:
+      version: 3.10.0
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
     startCommand: gunicorn app:app
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.10.0
       - key: GEMINI_API_KEY
         sync: false  # This will be set manually in Render dashboard
       - key: SECRET_KEY
