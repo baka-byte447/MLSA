@@ -1,4 +1,5 @@
-setuptools>=65.5.1
+-c constraints.txt
+setuptools>=65
 wheel>=0.40.0
 
 # Core dependencies
@@ -10,8 +11,8 @@ pandas==1.3.5
 numpy==1.20.3  # Compatible with Python 3.9
 
 # ML/AI
+torch==1.9.1+cpu
 transformers==4.11.3
-torch==1.9.1+cpu -f https://download.pytorch.org/whl/torch_stable.html
 sentencepiece==0.1.96
 protobuf==3.20.3
 
